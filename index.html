@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mumbai Signal Mapper</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Mumbai Signal Mapper</h1>
+            <p>Upload CSV, filter by operator, and detect dead zones</p>
+        </div>
+
+        <div class="card controls">
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" accept=".csv" required>
+                <button type="submit">Upload CSV</button>
+            </form>
+
+            <select id="operatorSelect">
+                <option value="All">All</option>
+                <option value="Jio">Jio</option>
+                <option value="Airtel">Airtel</option>
+                <option value="Vi">Vi</option>
+            </select>
+
+            <button onclick="loadData('all')">Show Data</button>
+            <button onclick="loadData('dead')">Show Dead Zones</button>
+        </div>
+
+        {% if success %}
+        <div class="msg success">{{ success }}</div>
+        {% endif %}
+        {% if error %}
+        <div class="msg error">{{ error }}</div>
+        {% endif %}
+
+        <div class="card">
+            <div id="summary">No data loaded.</div>
+        </div>
+
+        <div class="card">
+            <div id="map"></div>
+        </div>
+
+        <div class="card">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Lat</th>
+                        <th>Lng</th>
+                        <th>Signal</th>
+                        <th>Quality</th>
+                        <th>Radio</th>
+                        <th>Sim</th>
+                    
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
